@@ -6,36 +6,38 @@ import (
 
 type Region struct {
 	Name string
-	Id int
-}
-
-type Station struct {
-	Name string
-	Id int
+	Id   int
 }
 
 type SolarSystem struct {
-	Name string
-	Id int
+	Name         string
+	Id           int
+	Security     float64
+	TrueSecurity float64
+	Region       Region
+}
+
+type Station struct {
+	Name        string
+	Id          int
+	SolarSystem SolarSystem
 }
 
 type MarketType struct {
 	Name string
-	Id int
+	Id   int
 }
 
 type MarketOrder struct {
-	Type MarketType
-	OrderId int
-	Price float64
-	Bid bool
-	Station Station
+	Type        MarketType
+	OrderId     int
+	Price       float64
+	Bid         bool
 	SolarSystem SolarSystem
-	Region Region
-	Range int
-	VolRemain int
-	VolEnter int
-	MinVolume int
-	Expires time.Duration
-	ReportedAt time.Time
+	Range       int
+	VolRemain   int
+	VolEnter    int
+	MinVolume   int
+	Expires     time.Duration
+	ReportedAt  time.Time
 }

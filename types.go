@@ -29,15 +29,16 @@ type MarketType struct {
 }
 
 type MarketOrder struct {
-	Type        MarketType
-	OrderId     int
-	Price       float64
-	Bid         bool
-	SolarSystem SolarSystem
-	Range       int
-	VolRemain   int
-	VolEnter    int
-	MinVolume   int
-	Expires     time.Duration
-	ReportedAt  time.Time
+	Type       MarketType
+	OrderId    int
+	Price      float64
+	Bid        bool
+	Station    Station
+	Range      int
+	VolRemain  int
+	VolEnter   int
+	MinVolume  int
+	Issued     time.Time
+	Expires    time.Duration
+	ReportedAt time.Time
 }

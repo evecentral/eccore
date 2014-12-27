@@ -27,6 +27,6 @@ func CRESTToOrder(c *crestmarket.MarketOrder, static StaticItems) MarketOrder {
 		Type:       MarketType{Name: c.Type.Name, Id: c.Type.Id},
 		ReportedAt: time.Now(),
 		Issued:     c.Issued,
-		Expires:    (time.Duration(c.Duration) * time.Hour),
+		Expires:    (time.Duration(c.Duration) * time.Hour * 24),
 	}
 }

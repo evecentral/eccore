@@ -15,6 +15,8 @@ type StaticItems interface {
 	RegionById(id int) (Region, bool)
 }
 
+// mapProvider provides a static lookup
+// map which fulfills the StaticItems interface
 type mapProvider struct {
 	stationsById map[int]Station
 	systemsById  map[int]SolarSystem

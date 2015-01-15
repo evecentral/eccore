@@ -2,7 +2,6 @@ package eccore
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 )
 
@@ -42,11 +41,6 @@ func (m *mapProvider) RegionById(id int) (Region, bool) {
 // which has been sourced from tables in the given
 // database object.
 func NewStaticItemsFromDatabase(db *sql.DB) (StaticItems, error) {
-	connectString := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", psqlUser, psqlPass, psqlHost, psqlDb)
-	db, err := sql.Open("postgres", connectString)
-	if err != nil {
-		return nil, err
-	}
 
 	provider := &mapProvider{stationsById: make(map[int]Station),
 		systemsById: make(map[int]SolarSystem),

@@ -58,9 +58,14 @@ VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CAST ($12 AS INTERVAL), $13
 	}
 
 	for _, order := range orders {
-		duration := fmt.Sprintf("%d", order.Expires.Hours()/24)
+		duration := fmt.Sprintf("%d", int(order.Expires.Hours()/24))
+		// Historically, this is an integer column. welp.
+		bid := 0
+		if order.Bid {
+			bid = 1
+		}
 		_, err = insCurrent.Exec(region.Id, order.Station.SolarSystem.Id, order.Station.Id,
-			mt.Id, order.Bid, order.Price, order.MinVolume, order.VolRemain, order.VolEnter,
+			mt.Id, bid, order.Price, order.OrderId, order.MinVolume, order.VolRemain, order.VolEnter,
 			order.Issued, duration, order.Range, order.ReportedAt)
 		if err != nil {
 			tx.Rollback()
@@ -68,7 +73,7 @@ VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CAST ($12 AS INTERVAL), $13
 			return err
 		}
 		_, err = insArchive.Exec(region.Id, order.Station.SolarSystem.Id, order.Station.Id,
-			mt.Id, order.Bid, order.Price, order.MinVolume, order.VolRemain, order.VolEnter,
+			mt.Id, bid, order.Price, order.OrderId, order.MinVolume, order.VolRemain, order.VolEnter,
 			order.Issued, duration, order.Range)
 
 		if err != nil {
